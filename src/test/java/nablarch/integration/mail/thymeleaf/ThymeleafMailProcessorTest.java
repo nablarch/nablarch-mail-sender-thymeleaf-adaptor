@@ -42,6 +42,9 @@ public class ThymeleafMailProcessorTest {
         variables.put("foo", "hello");
         variables.put("bar", 123);
 
+        //templateIdをそのままテンプレートとして扱う設定でテストをしているため、
+        //テンプレートそのものを渡している。
+        //上記の設定にしている理由はsetUpメソッド内のコメントを参照。
         TemplateEngineProcessedResult result = sut.process(template, lang, variables);
 
         assertThat(result.getSubject(), is("件名テスト：hello"));
@@ -70,6 +73,8 @@ public class ThymeleafMailProcessorTest {
 
         sut.setDelimiter("@@@");
 
+        //templateIdをそのままテンプレートとして扱う設定でテストをしているため、テンプレートそのものを渡している。
+        //上記の設定にしている理由はsetUpメソッド内のコメントを参照。
         TemplateEngineProcessedResult result = sut.process(alterDelimiterTemplate, lang, variables);
 
         assertThat(result.getSubject(), is("---"));
@@ -79,7 +84,13 @@ public class ThymeleafMailProcessorTest {
     @Before
     public void setUp() {
         TemplateEngine templateEngine = new TemplateEngine();
+
+        //渡されたテンプレート名をそのままテンプレートとして扱うITemplateResolverを設定する。
+        //そのような設定をしている理由は以下の通り。
+        //  ・Thymeleafそのもののテストではなく、ThymeleafMailProcessorのテストである
+        //  ・ユニットテストはなるべく外部リソースを使わずJVMに閉じている方がよい
         templateEngine.setTemplateResolver(new StringTemplateResolver());
+
         sut.setTemplateEngine(templateEngine);
     }
 }
