@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component-configuration
+	xmlns="http://tis.co.jp/nablarch/component-configuration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://tis.co.jp/nablarch/component-configuration">
+
+	<component name="templateEngine" class="org.thymeleaf.TemplateEngine"
+		autowireType="None">
+		<property name="templateResolver">
+			<component
+				class="org.thymeleaf.templateresolver.ClassLoaderTemplateResolver"
+				autowireType="None">
+			</component>
+		</property>
+	</component>
+
+	<component name="templateEngineMailProcessor"
+		class="nablarch.integration.mail.thymeleaf.ThymeleafMailProcessor"
+		autowireType="None">
+		<property name="templateEngine" ref="templateEngine" />
+	</component>
+
+</component-configuration>
