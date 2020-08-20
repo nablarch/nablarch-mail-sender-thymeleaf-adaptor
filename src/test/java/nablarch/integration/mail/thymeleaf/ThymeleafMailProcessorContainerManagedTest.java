@@ -43,6 +43,6 @@ public class ThymeleafMailProcessorContainerManagedTest {
                 Collections.unmodifiableMap(variables));
 
         assertThat(result.getSubject(), is("あああ0"));
-        assertThat(result.getMailBody(), is("いいい\r\nえええ1\r\nえええ2\r\nえええ3\r\n"));
+        assertThat(result.getMailBody(), is("いいい\nえええ1\nえええ2\nえええ3\n"));
     }
 }
